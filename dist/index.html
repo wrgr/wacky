@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#2457ff" />
+    <meta
+      name="description"
+      content="Will's Wacky Words is a playful fill-in-the-blank story game for kids and grown-ups."
+    />
+    <title>Will's Wacky Words</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main id="app" class="app-shell">
+      <section id="home-screen" class="screen" aria-labelledby="game-title">
+        <header class="game-header">
+          <div class="logo-mark" aria-hidden="true">
+            <span>W</span><span>!</span>
+          </div>
+          <div>
+            <p class="eyebrow">A make-it-silly story game</p>
+            <h1 id="game-title">Will’s <em>Wacky</em> Words</h1>
+          </div>
+        </header>
+
+        <section class="setup-panel" aria-label="Game setup">
+          <div class="mode-row">
+            <div>
+              <h2>Pick your word power</h2>
+              <p id="mode-description">Simple, playful words for younger storytellers.</p>
+            </div>
+            <div class="segmented-control" role="group" aria-label="Word complexity">
+              <button class="mode-button active" type="button" data-mode="kid" aria-pressed="true">
+                <span aria-hidden="true">🛝</span> Kid
+              </button>
+              <button class="mode-button" type="button" data-mode="adult" aria-pressed="false">
+                <span aria-hidden="true">🧐</span> Adult
+              </button>
+            </div>
+          </div>
+
+          <div class="roster-block">
+            <div class="section-heading">
+              <div>
+                <h2>Your characters</h2>
+                <p>These exact names appear in <span class="type-label type-name">◆ Name</span> choices.</p>
+              </div>
+              <span id="roster-count" class="count-pill">5 / 10</span>
+            </div>
+            <div id="character-list" class="character-list" aria-live="polite"></div>
+            <form id="character-form" class="character-form">
+              <label class="sr-only" for="character-input">Add a character name</label>
+              <input
+                id="character-input"
+                name="character"
+                type="text"
+                maxlength="24"
+                autocomplete="off"
+                placeholder="Add a name…"
+              />
+              <button type="submit">＋ Add</button>
+            </form>
+          </div>
+
+          <div class="word-key" aria-label="Word type key">
+            <span class="type-label type-name">◆ Name</span>
+            <span class="type-label type-action">⚡ Action (verb)</span>
+            <span class="type-label type-modifier">✦ Modifier (adj.)</span>
+            <span class="type-label type-misc">● Misc.</span>
+          </div>
+        </section>
+
+        <section class="theme-section" aria-labelledby="theme-heading">
+          <div class="section-heading theme-heading">
+            <div>
+              <p class="eyebrow">10 ready-made adventures</p>
+              <h2 id="theme-heading">Choose a story</h2>
+            </div>
+            <span class="scribble-arrow" aria-hidden="true">Pick one! ↘</span>
+          </div>
+          <div id="theme-grid" class="theme-grid"></div>
+        </section>
+      </section>
+
+      <section id="play-screen" class="screen hidden" aria-live="polite" aria-labelledby="prompt-heading">
+        <header class="play-header">
+          <button id="home-button" class="icon-button" type="button" aria-label="Return to story choices">←</button>
+          <div class="play-heading">
+            <span id="play-theme-icon" class="mini-theme-icon" aria-hidden="true"></span>
+            <div>
+              <p id="play-theme-label" class="eyebrow"></p>
+              <h1 id="play-story-title"></h1>
+            </div>
+          </div>
+          <span id="play-mode-pill" class="mode-pill"></span>
+        </header>
+
+        <div class="progress-wrap" aria-label="Story progress">
+          <div class="progress-meta">
+            <span id="progress-text">Word 1 of 7</span>
+            <span id="progress-percent">14%</span>
+          </div>
+          <div class="progress-track"><div id="progress-bar" class="progress-bar"></div></div>
+        </div>
+
+        <section id="prompt-card" class="prompt-card">
+          <div id="prompt-type" class="prompt-type"></div>
+          <p class="prompt-kicker">The story needs…</p>
+          <h2 id="prompt-heading" tabindex="-1"></h2>
+          <p id="prompt-hint" class="prompt-hint"></p>
+          <div id="choice-grid" class="choice-grid"></div>
+
+          <div class="or-divider"><span>or write your own</span></div>
+          <form id="custom-word-form" class="custom-word-form">
+            <label class="sr-only" for="custom-word-input">Write your own word</label>
+            <input
+              id="custom-word-input"
+              type="text"
+              maxlength="32"
+              autocomplete="off"
+              placeholder="Your wonderfully weird word…"
+            />
+            <button type="submit">Use it <span aria-hidden="true">→</span></button>
+          </form>
+        </section>
+
+        <div class="play-footer">
+          <button id="previous-button" class="text-button" type="button">← Previous word</button>
+          <p>Tap a word to pop it into the story.</p>
+        </div>
+      </section>
+
+      <section id="result-screen" class="screen hidden" aria-labelledby="result-title">
+        <div class="confetti" aria-hidden="true">
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        </div>
+        <header class="result-header">
+          <div class="result-badge" aria-hidden="true">TA-DA!</div>
+          <p class="eyebrow">Your wacky story is ready</p>
+          <h1 id="result-title"></h1>
+          <p>Read it out loud. Dramatic voices are highly encouraged.</p>
+        </header>
+        <article id="story-paper" class="story-paper"></article>
+        <div class="result-actions">
+          <button id="replay-button" class="primary-button" type="button">↻ Play this story again</button>
+          <button id="themes-button" class="secondary-button" type="button">Choose another theme</button>
+        </div>
+        <div class="result-key word-key" aria-label="Highlighted word key">
+          <span class="type-label type-name">◆ Name</span>
+          <span class="type-label type-action">⚡ Action (verb)</span>
+          <span class="type-label type-modifier">✦ Modifier (adj.)</span>
+          <span class="type-label type-misc">● Misc.</span>
+        </div>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
