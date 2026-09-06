@@ -198,7 +198,7 @@ const stories = [
 
 const state = {
   mode: "kid",
-  characters: ["Will", "Alex", "Mia", "Theo", "Zoey"],
+  characters: ["Will", "Karla", "Eli", "Julian", "Jon", "Alex"],
   story: null,
   blankIndex: 0,
   answers: {},
